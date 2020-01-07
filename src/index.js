@@ -8,15 +8,14 @@ client.on("message", (channel, tags, message, self) => {
     if (self) {
         return;
     }
-    if (!message.startsWith(config.bot.prefix)) {
-        return;
-    }
 
-    nats.publish("message", { channel, tags, message });
+    nats.publish("messageReceived", { channel, tags, message });
 });
 
-nats.subscribe("reply", msg => {
-    client.say(msg.channel, msg.message);
+nats.subscribe("sendMessage", msg => {
+    if (client.readyState() === "OPEN") {
+        client.say(msg.channel, msg.message);
+    }
 });
 
 client.connect();
