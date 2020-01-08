@@ -1,5 +1,6 @@
 const tmi = require("tmi.js");
 const config = require("./config");
+const log = require("./log");
 
 const client = new tmi.Client({
     options: { debug: true },
@@ -12,6 +13,7 @@ const client = new tmi.Client({
         password: config.bot.password,
     },
     channels: config.bot.channels,
+    logger: log,
 });
 
 module.exports = client;

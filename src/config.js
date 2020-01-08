@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 module.exports = {
     bot: {
         username: process.env.BOT_USERNAME,

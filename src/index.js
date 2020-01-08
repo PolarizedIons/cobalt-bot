@@ -1,7 +1,5 @@
-require("dotenv").config();
-
-const config = require("./config");
 const client = require("./client");
+const log = require("./log");
 const nats = require("./nats");
 
 client.on("message", (channel, tags, message, self) => {
@@ -18,4 +16,5 @@ nats.subscribe("sendMessage", msg => {
     }
 });
 
+log.info("Starting...");
 client.connect();
