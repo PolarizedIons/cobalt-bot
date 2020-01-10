@@ -16,5 +16,11 @@ nats.subscribe("sendMessage", msg => {
     }
 });
 
+nats.subscribe("sendSpecialMessage", msg => {
+    if (client.readyState() === "OPEN") {
+        client.action(msg.channel, msg.message);
+    }
+});
+
 log.info("Starting...");
 client.connect();
